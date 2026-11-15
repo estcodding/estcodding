@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/banner.png" width="880" alt="Eduardo Soto — software &amp; hardware engineer, A Coruña">
+  <img src="assets/banner.png" width="880" alt="EST. — software &amp; hardware engineer, A Coruña">
 </div>
 
 <p align="center">
@@ -35,14 +35,14 @@
 ## Ficha técnica
 
 <p align="center">
-  <img src="assets/ficha.png" width="860" alt="Ficha técnica: Eduardo Soto Teijido, perfil, experiencia, formación, stack e idiomas">
+  <img src="assets/ficha.png" width="860" alt="Ficha técnica: EST. (estcodding), perfil, experiencia, formación, stack e idiomas">
 </p>
 
 ## En la terminal
 
 ```bash
 $ whoami
-eduardo soto — software & hardware engineer · A Coruña
+estcodding — software & hardware engineer · A Coruña
 $ ls ~/stack
 python  c  cpp  javascript  react  node  docker  aws  sql  git  linux
 $ cat ~/ahora.txt
@@ -54,5 +54,5 @@ taamago en una ESP32 CYD, aetheris para la Epic MegaJam y la web de la banda
 </p>
 
 <p align="center">
-  <sub>© Eduardo Soto · A Coruña · 2026</sub>
+  <sub>© EST. · estcodding · A Coruña · 2026</sub>
 </p>
