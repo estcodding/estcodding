@@ -1,0 +1,5 @@
+_p_*.html
+src/raw/
+src/preview_*.png
+src/*.jpg
+preview_*.html

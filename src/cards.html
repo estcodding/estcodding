@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@500;700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#f2ebdd; --papel-oscuro:#e6dcc8; --blanco:#fdfaf3;
+  --tinta:#17130f; --gris:#6b6258;
+  --acento:#0f9c8c; --acento-fuerte:#0b6f64; --rojo:#d84a2f;
+  --celo:rgba(255,255,255,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:transparent}
+body{font-family:'Inter',sans-serif;color:var(--tinta);padding:26px}
+.card{display:none;position:relative}
+.card.on{display:block}
+
+/* ---------- papel + grano ---------- */
+.papel{
+  position:relative;background-color:var(--blanco);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(216,202,176,.45), transparent 42%),
+    radial-gradient(circle at 88% 4%, rgba(214,198,170,.42), transparent 38%),
+    radial-gradient(circle at 55% 92%, rgba(219,205,180,.38), transparent 46%),
+    linear-gradient(180deg,#fdfaf3 0%, #f7f1e4 55%, #f1e9d7 100%);
+  box-shadow:0 16px 34px rgba(31,24,15,.26);
+}
+.papel::after{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.26;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23r)' opacity='0.5'/></svg>");
+}
+/* ---------- celo ---------- */
+.celo{
+  position:absolute;background:linear-gradient(160deg,rgba(255,254,248,.92),rgba(228,220,201,.82));
+  border-left:1px dashed rgba(23,19,15,.22);border-right:1px dashed rgba(23,19,15,.22);
+  border-top:1px solid rgba(255,255,255,.7);border-bottom:1px solid rgba(23,19,15,.09);
+  box-shadow:0 2px 6px rgba(31,24,15,.2);z-index:6;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.9) 4%,#000 96%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.9) 4%,#000 96%,transparent 100%);
+}
+.torn{
+  --torn:polygon(0 0,100% 0,100% 98.4%,97% 99.5%,94% 98.1%,91% 99.6%,88% 98.3%,85% 99.5%,82% 98.1%,79% 99.4%,76% 97.9%,73% 99.3%,70% 98%,67% 99.5%,64% 98.2%,61% 99.6%,58% 98%,55% 99.4%,52% 97.8%,49% 99.2%,46% 97.9%,43% 99.4%,40% 98.1%,37% 99.5%,34% 97.9%,31% 99.3%,28% 98%,25% 99.4%,22% 97.9%,19% 99.2%,16% 97.8%,13% 99.3%,10% 97.9%,7% 99.4%,4% 98%,0 99.2%);
+  clip-path:var(--torn);
+}
+.hand{font-family:'Caveat',cursive}
+.mono{font-family:'JetBrains Mono',monospace}
+.black{font-family:'Archivo Black',sans-serif;letter-spacing:-.02em}
+
+
+/* =========================================================
+   FIRMA 440
+   ========================================================= */
+#firma{width:440px}
+.fr-wrap{position:relative;width:440px;padding:16px 14px 20px}
+.fr-scrap{position:relative;width:412px;padding:16px 22px 18px;transform:rotate(-1.6deg);background:var(--blanco)}
+.fr-scrap p{font-family:'Caveat',cursive;font-size:26px;line-height:1.1;color:var(--tinta);text-align:center}
+.fr-scrap span{display:block;font-family:'JetBrains Mono',monospace;font-size:7.4px;letter-spacing:.22em;text-transform:uppercase;color:var(--gris);text-align:center;margin-top:6px}
+.fr-squig{display:block;margin:6px auto 0;opacity:.7}
+
+/* =========================================================
+   BANNER 880
+   ========================================================= */
+#banner{width:880px}
+.bn-wrap{position:relative;width:880px;padding:16px 14px 26px}
+.bn-sheet{position:relative;width:864px;padding:34px 40px 46px;transform:rotate(-.45deg)}
+.bn-sello{position:absolute;top:-10px;left:44% ;width:120px;height:26px;transform:rotate(-4deg)}
+.bn-grid{display:grid;grid-template-columns:158px minmax(0,1fr) 158px;align-items:center;gap:4px}
+.bn-mini{
+  position:relative;background:var(--blanco);padding:8px 8px 6px;box-shadow:0 10px 20px rgba(31,24,15,.22);
+}
+.bn-mini.cod{transform:rotate(-7deg);margin-top:6px}
+.bn-mini.side{transform:rotate(6deg);margin-top:-14px}
+.bn-mini p{font-family:'Caveat',cursive;font-size:15px;color:var(--gris);text-align:center;padding:5px 0 2px}
+.bn-code{background:#1b1712;padding:8px 9px;font-family:'JetBrains Mono',monospace;font-size:7.4px;line-height:1.6;color:#e9e2d3;border-radius:2px;white-space:pre;overflow:hidden}
+.bn-code .k{color:#8fd6cb}.bn-code .s{color:#e0a08c}.bn-code .c{color:#7d7466}
+.bn-stamp{
+  width:108px;height:108px;margin:6px auto 2px;border:3px solid var(--rojo);border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--rojo);
+  transform:rotate(-9deg);opacity:.85;box-shadow:inset 0 0 0 3px rgba(216,74,47,.18);
+}
+.bn-stamp b{font-family:'Archivo Black',sans-serif;font-size:20px;letter-spacing:.03em;line-height:1}
+.bn-stamp span{font-family:'Inter',sans-serif;font-size:5.6px;letter-spacing:.16em;margin-top:4px;text-transform:uppercase}
+.bn-stamp i{font-family:'Caveat',cursive;font-size:13px;font-style:normal;margin-top:1px}
+.bn-center{text-align:center;position:relative;z-index:5}
+.bn-ante{font-family:'Caveat',cursive;font-size:21px;color:var(--acento-fuerte);transform:rotate(-1.4deg)}
+.bn-title{font-family:'Archivo Black',sans-serif;font-size:96px;line-height:.88;letter-spacing:-.045em;margin-top:0}
+.bn-title em{font-style:normal;color:var(--acento)}
+.bn-handle{font-family:'Archivo Black',sans-serif;font-size:19px;letter-spacing:.3em;color:var(--acento-fuerte);margin-top:8px;text-transform:uppercase}
+.bn-postit{background:#f7f0dc;padding:12px 10px;box-shadow:0 3px 7px rgba(31,24,15,.2),inset 0 0 0 1px rgba(23,19,15,.07);border-bottom:3px solid #e8dfc4}
+.bn-postit p{font-family:'Caveat',cursive;font-size:16.5px;line-height:1.28;color:var(--tinta);text-align:center}
+.bn-postit p b{color:var(--acento-fuerte);font-weight:700}
+.bn-stamp2{position:absolute;right:-6px;bottom:10px;width:78px;height:78px;border:2.5px solid var(--rojo);border-radius:50%;color:var(--rojo);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-11deg);opacity:.72;box-shadow:inset 0 0 0 2.5px rgba(216,74,47,.2);z-index:7}
+.bn-stamp2 b{font-family:'Archivo Black',sans-serif;font-size:11px;line-height:1;letter-spacing:.04em}
+.bn-stamp2 span{font-size:5.4px;letter-spacing:.2em;margin-top:3px}
+.bn-stamp2 i{font-family:'Caveat',cursive;font-style:normal;font-size:10px;margin-top:1px}
+.bn-sub{font-family:'Inter',sans-serif;font-weight:600;font-size:9.6px;letter-spacing:.3em;text-transform:uppercase;color:var(--gris);margin-top:12px}
+.bn-line{width:120px;height:2px;background:var(--tinta);margin:11px auto 0;opacity:.55}
+.bn-note{font-family:'Caveat',cursive;font-size:17px;color:var(--gris);margin-top:8px;transform:rotate(-.8deg)}
+.bn-tape-l{position:absolute;top:-13px;left:26px;width:112px;height:26px;transform:rotate(-3deg)}
+.bn-tape-r{position:absolute;bottom:20px;right:34px;width:96px;height:24px;transform:rotate(2deg)}
+
+/* =========================================================
+   FICHA 860  (papel rayado)
+   ========================================================= */
+#ficha{width:860px}
+.fi-wrap{position:relative;width:860px;padding:20px 14px 30px}
+.fi-sheet{
+  position:relative;width:844px;padding:28px 34px 32px;transform:rotate(.4deg);
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0 27px, rgba(23,19,15,.075) 27px 28px),
+    linear-gradient(180deg,#fdfaf3,#f5eede);
+  box-shadow:0 16px 32px rgba(31,24,15,.24);
+}
+.fi-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--tinta);padding-bottom:8px;margin-bottom:16px}
+.fi-head h2{font-family:'Archivo Black',sans-serif;font-size:23px;text-transform:uppercase;letter-spacing:-.01em}
+.fi-head span{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--gris);text-transform:uppercase}
+.fi-row{display:grid;grid-template-columns:118px 1fr;gap:14px;align-items:baseline;padding:5.5px 0}
+.fi-row dt{font-family:'JetBrains Mono',monospace;font-size:9.4px;letter-spacing:.14em;text-transform:uppercase;color:var(--acento-fuerte)}
+.fi-row dd{font-size:14.2px;line-height:1.35;color:var(--tinta)}
+.fi-row dd b{font-weight:700}
+.fi-row dd .dim{color:var(--gris);font-weight:300}
+.fi-firma{display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px;border-top:1px dashed rgba(23,19,15,.28);padding-top:10px}
+.fi-firma p{font-family:'Caveat',cursive;font-size:21px;color:var(--acento-fuerte);transform:rotate(-1.4deg)}
+.fi-sello2{border:2.5px solid var(--rojo);color:var(--rojo);border-radius:8px;padding:4px 9px;font-family:'Archivo Black',sans-serif;font-size:8.4px;letter-spacing:.14em;transform:rotate(-3deg);opacity:.8;line-height:1.35;text-align:center}
+
+/* =========================================================
+   POLAROIDS 400
+   ========================================================= */
+#web,#esp32,#jam,#bot{width:400px}
+.pol{position:relative;width:400px;padding:18px 16px 22px}
+.pol-in{position:relative;background:var(--blanco);padding:13px 13px 0;transform:rotate(-1.4deg);box-shadow:0 14px 28px rgba(31,24,15,.26)}
+.pol-in.t2{transform:rotate(1.2deg)}
+
+/* grano encima de las fotos: rompe el banding de los degradados y parece papel fotografico */
+.pol-foto::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.3;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23g)' opacity='0.6'/></svg>");}
+.pol-foto{position:relative;width:100%;height:272px;overflow:hidden;background:#0d0b09}
+.pol-tape{position:absolute;top:-11px;left:16%;width:88px;height:23px;transform:rotate(-5deg)}
+.pol-tape.r{left:auto;right:16%;transform:rotate(4deg)}
+.pol-cap{padding:11px 2px 15px}
+.pol-cap h3{font-family:'Archivo Black',sans-serif;font-size:15.5px;text-transform:uppercase;line-height:1.1;letter-spacing:-.01em}
+.pol-cap p{font-family:'Caveat',cursive;font-size:17px;line-height:1.18;color:var(--gris);margin-top:3px}
+.pol-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.pol-chips span{font-family:'JetBrains Mono',monospace;font-size:7.6px;letter-spacing:.1em;text-transform:uppercase;padding:2.5px 6px;border:1px solid rgba(23,19,15,.35);color:var(--tinta);background:rgba(255,255,255,.4)}
+.pol-chips span.acc{background:var(--acento);border-color:var(--acento-fuerte);color:#fff}
+.pol-num{position:absolute;top:6px;right:8px;font-family:'Archivo Black',sans-serif;font-size:10px;color:var(--gris);opacity:.6}
+
+/* --- foto 1: web de la banda --- */
+.fw{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,#242019,#100d0a 78%);display:flex;align-items:center;justify-content:center;padding:9px}
+.fw-list{display:grid;gap:0;margin-top:10px}
+.fw-list div{display:flex;gap:6px;align-items:baseline;padding:3.5px 0;border-top:1px dashed rgba(23,19,15,.28);font-family:'Inter',sans-serif;font-size:5.6px;color:#3b332a;letter-spacing:.04em}
+.fw-list b{font-family:'Archivo Black',sans-serif;font-size:5.4px;letter-spacing:.1em;color:#17130f}
+.fw-foot{padding:4px 14px;background:#17130f;color:#d9d1c1;font-family:'JetBrains Mono',monospace;font-size:4.8px;letter-spacing:.14em;text-transform:uppercase}
+.fw-win{width:100%;height:100%;background:#efe7d6;border-radius:3px;overflow:hidden;box-shadow:0 10px 22px rgba(0,0,0,.55);display:flex;flex-direction:column}
+.fw-bar{display:flex;align-items:center;gap:4px;padding:5px 7px;background:#1d1a16}
+.fw-bar i{width:5px;height:5px;border-radius:50%;background:#6b6258;display:block}
+.fw-bar b{margin-left:5px;font-family:'JetBrains Mono',monospace;font-weight:400;font-size:6.6px;color:#cfc6b4;letter-spacing:.04em}
+.fw-page{position:relative;flex:1;display:flex;flex-direction:column;padding:16px 14px 0;background:#f2ebdd;background-image:radial-gradient(circle at 15% 10%,rgba(216,202,176,.6),transparent 45%),radial-gradient(circle at 85% 90%,rgba(214,198,170,.5),transparent 45%)}
+.fw-top{display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-size:5.2px;letter-spacing:.16em;text-transform:uppercase;color:#6b6258}
+.fw-top em{font-style:normal;width:15px;height:15px;border-radius:50%;border:1.6px solid #17130f;display:block}
+.fw-title{font-family:'Archivo Black',sans-serif;font-size:23px;line-height:.92;letter-spacing:-.04em;color:#17130f;margin-top:10px}
+.fw-title span{color:#0f9c8c}
+.fw-hand{font-family:'Caveat',cursive;font-size:11px;color:#0b6f64;margin-top:3px;transform:rotate(-1.2deg)}
+.fw-photos{display:flex;gap:8px;margin-top:12px}
+.fw-ph{position:relative;flex:1;height:56px;background:#fdfaf3;padding:3.5px;box-shadow:2px 3px 6px rgba(31,24,15,.3)}
+.fw-ph:nth-child(1){transform:rotate(-6deg)}
+.fw-ph:nth-child(2){transform:rotate(4deg)}
+.fw-ph i{display:block;width:100%;height:100%;background:linear-gradient(160deg,#3d3830,#151210)}
+.fw-ph.g i{background:linear-gradient(160deg,#0f9c8c,#0b4c46)}
+.fw-btn{align-self:flex-start;margin-top:auto;margin-bottom:12px;font-family:'Archivo Black',sans-serif;font-size:5.6px;letter-spacing:.14em;text-transform:uppercase;color:#f2ebdd;background:#17130f;padding:4px 9px;box-shadow:2px 2px 0 #0f9c8c}
+
+
+/* --- foto 2: TAAMAGO en ESP32 CYD (carcasa 3D) --- */
+.cyd{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 48% 34%,rgba(255,230,196,.2),transparent 62%),
+             linear-gradient(160deg,#332d26,#16130f 76%)}
+.cyd-case{position:relative;width:332px;height:256px;padding:12px;border-radius:12px;
+  background:linear-gradient(150deg,#4a443b,#221e19 52%,#12100d);
+  box-shadow:0 22px 36px rgba(0,0,0,.62),inset 0 2px 0 rgba(255,255,255,.26),inset 2px 0 0 rgba(255,255,255,.1),inset 0 -3px 8px rgba(0,0,0,.65);
+  transform:rotate(-3deg) perspective(1000px) rotateY(-8deg) rotateX(2deg)}
+.cyd-case::before{content:'';position:absolute;inset:0;border-radius:12px;pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 1px,transparent 1px 2.5px)}
+.scr{position:absolute;width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#8c8477,#3a352e);
+  box-shadow:inset 0 0 2px rgba(0,0,0,.9),0 0 1px rgba(255,255,255,.2)}
+.scr.tl{top:5px;left:5px}.scr.tr{top:5px;right:5px}.scr.bl{bottom:5px;left:5px}.scr.br{bottom:5px;right:5px}
+.cyd-usb{position:absolute;right:-15px;top:104px;width:17px;height:28px;border-radius:2px;
+  background:linear-gradient(180deg,#a49b8d,#5c554a 60%,#3a352e);box-shadow:0 3px 8px rgba(0,0,0,.55)}
+.cyd-screen{position:relative;width:308px;height:232px;border-radius:6px;overflow:hidden;
+  background:#0a0908;box-shadow:inset 0 0 0 2px #060505,0 0 0 1px rgba(255,255,255,.06)}
+.u{position:absolute;inset:5px;display:flex;flex-direction:column;gap:4px}
+.u-top{height:20px;display:flex;align-items:center;gap:4px;padding:0 5px;border-radius:10px;
+  background:rgba(255,255,255,.62);border:1.2px solid rgba(226,160,186,.85)}
+.u-lv{font-family:'Inter',sans-serif;font-size:8.4px;font-weight:600;color:#3a2b3a;letter-spacing:-.01em}
+.u-lv b{font-weight:700}
+.u-stats{display:flex;gap:2px;margin-left:2px}
+.u-stats i{display:block;width:22px;height:4px;border-radius:2px;background:rgba(58,43,58,.14);position:relative;overflow:hidden}
+.u-stats i::after{content:'';position:absolute;inset:0;width:var(--w);background:var(--c);border-radius:2px}
+.u-coin{margin-left:auto;display:flex;align-items:center;gap:2px;font-family:'Inter',sans-serif;font-size:8px;font-weight:700;color:#c2568a}
+.u-coin s{display:block;width:7px;height:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f0d97a,#c9a227);text-decoration:none}
+.u-gear{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6cadb,#d98fb0);
+  box-shadow:inset 0 0 0 1px rgba(58,43,58,.25)}
+.u-gear::after{content:'';position:absolute}
+.u-scene{position:relative;flex:1;border-radius:8px;overflow:hidden;
+  background:linear-gradient(180deg,#8ad6f7 0%,#66c2f0 46%,#4aa2e2 100%)}
+.u-scene::after{content:'';position:absolute;left:0;right:0;bottom:0;height:56px;
+  background:linear-gradient(180deg,#c2c489,#a9ad6e)}
+.u-tl{position:absolute;top:6px;left:6px;width:34px;height:12px;border-radius:6px;background:rgba(255,255,255,.7)}
+.u-tr{position:absolute;top:6px;right:6px;display:flex;align-items:center;justify-content:center;
+  width:34px;height:12px;border-radius:6px;background:rgba(255,255,255,.7)}
+.u-tr i{width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f0d97a,#c9a227)}
+.u-pet{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);width:104px;height:118px;z-index:3}
+.u-pet .ear{position:absolute;top:22px;width:30px;height:48px;background:#2b2328;border-radius:15px}
+.u-pet .ear.l{left:-6px;transform:rotate(17deg)}
+.u-pet .ear.r{right:-6px;transform:rotate(-17deg)}
+.u-pet .tuft{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:15px;height:10px;
+  background:#2b2328;border-radius:7px 7px 2px 2px}
+.u-pet .head{position:absolute;left:50%;top:14px;transform:translateX(-50%);width:80px;height:66px;
+  background:#fffdf8;border-radius:50% 50% 47% 47%;box-shadow:0 2px 4px rgba(30,20,30,.14)}
+.u-pet .eye{position:absolute;top:42%;width:6px;height:8px;border-radius:3px;background:#2b2328}
+.u-pet .eye.l{left:22%}.u-pet .eye.r{right:22%}
+.u-pet .nose{position:absolute;top:56%;left:50%;transform:translateX(-50%);width:6px;height:4px;border-radius:2px;background:#2b2328}
+.u-pet .blush{position:absolute;bottom:14%;width:15px;height:9px;border-radius:50%;background:#f0aac0;opacity:.9}
+.u-pet .blush.l{left:6%}.u-pet .blush.r{right:6%}
+.u-pet .body{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);width:62px;height:44px;
+  background:linear-gradient(180deg,#c8808f,#b96d80);border-radius:14px 14px 9px 9px;z-index:-1}
+.u-pet .cushion{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:92px;height:18px;
+  background:radial-gradient(ellipse at 50% 30%,#e2d6c2,#c9bda6);border-radius:50%;z-index:-2;opacity:.9}
+.u-btns{height:42px;display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+.u-btns span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  border-radius:9px;border:1.2px solid var(--br);background:var(--bga);font-family:'Inter',sans-serif;
+  font-size:6.4px;font-weight:600;color:#3a2b3a;letter-spacing:-.02em}
+.u-btns span i{width:6px;height:6px;border-radius:50%;background:var(--d);display:block}
+.u-btns span:nth-child(4) i{border-radius:1.5px}
+.u-btns span:nth-child(1){--bga:rgba(240,190,212,.6);--br:rgba(214,130,170,.9);--d:#c2568a}
+.u-btns span:nth-child(2){--bga:rgba(150,214,226,.6);--br:rgba(90,180,200,.9);--d:#3f9fb4}
+.u-btns span:nth-child(3){--bga:rgba(240,226,140,.65);--br:rgba(200,180,70,.9);--d:#c9a227}
+.u-btns span:nth-child(4){--bga:rgba(238,238,232,.75);--br:rgba(170,170,160,.9);--d:#f7f5ee}
+.u-btns span:nth-child(5){--bga:rgba(244,200,140,.65);--br:rgba(214,150,70,.9);--d:#c98030}
+.u-btns span:nth-child(6){--bga:rgba(240,190,212,.6);--br:rgba(214,130,170,.9);--d:#c2568a}
+.u-lcd{position:absolute;inset:0;pointer-events:none;opacity:.42;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 2px),
+             repeating-linear-gradient(90deg,rgba(0,0,0,.13) 0 1px,transparent 1px 2px)}
+.u-glass{position:absolute;inset:0;pointer-events:none;border-radius:6px;
+  background:linear-gradient(118deg,rgba(255,255,255,.2),rgba(255,255,255,0) 34%,rgba(255,255,255,0) 66%,rgba(255,255,255,.09))}
+
+/* --- foto 3: juego epic jam --- */
+.fj{position:absolute;inset:0;background:linear-gradient(180deg,#080b14 0%,#141a2e 42%,#2a2138 72%,#120f18 100%);overflow:hidden}
+.fj-stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 18%,rgba(255,255,255,.85),transparent),radial-gradient(1px 1px at 62% 12%,rgba(255,255,255,.6),transparent),radial-gradient(1.5px 1.5px at 84% 26%,rgba(255,255,255,.8),transparent),radial-gradient(1px 1px at 38% 30%,rgba(255,255,255,.5),transparent),radial-gradient(1px 1px at 74% 40%,rgba(255,255,255,.45),transparent),radial-gradient(1px 1px at 12% 44%,rgba(255,255,255,.4),transparent)}
+.fj-moon{position:absolute;top:32px;right:44px;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d8e6ff,#7c8fc4 70%);box-shadow:0 0 34px rgba(140,170,255,.45)}
+.fj-mont{position:absolute;bottom:0;left:0;width:100%;height:120px;background:#0b0912;clip-path:polygon(0 100%,0 62%,12% 40%,24% 58%,36% 26%,48% 52%,60% 34%,72% 56%,84% 38%,100% 58%,100% 100%)}
+.fj-mont.f{height:74px;background:#171223;clip-path:polygon(0 100%,0 70%,16% 48%,30% 66%,44% 44%,58% 68%,74% 50%,88% 70%,100% 56%,100% 100%)}
+.fj-hero{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);filter:drop-shadow(0 0 12px rgba(15,156,140,.55))}
+
+
+
+
+.fj-orb{position:absolute;left:50%;bottom:92px;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#b9fff5,#0f9c8c 65%);box-shadow:0 0 24px rgba(15,156,140,.9)}
+.fj-hud{position:absolute;top:11px;left:12px;right:12px;display:flex;align-items:center;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:6px;color:#cfd8e8;letter-spacing:.12em;text-transform:uppercase}
+.fj-hp{width:88px;height:5px;background:rgba(255,255,255,.14);border-radius:2px;overflow:hidden;margin-top:3px}
+.fj-hp i{display:block;height:100%;width:72%;background:linear-gradient(90deg,#0f9c8c,#8fe0d4)}
+.fj-tag{position:absolute;bottom:10px;left:12px;font-family:'Archivo Black',sans-serif;font-size:8px;letter-spacing:.16em;color:#e8e2d5;text-transform:uppercase;opacity:.9}
+.fj-jam{position:absolute;bottom:9px;right:11px;border:1px solid rgba(232,226,213,.5);color:#e8e2d5;font-family:'JetBrains Mono',monospace;font-size:5.6px;letter-spacing:.1em;padding:2px 5px;text-transform:uppercase}
+
+/* --- foto 4: java / sql --- */
+.ft{position:absolute;inset:0;background:#12100d;padding:12px;display:flex;flex-direction:column}
+.ft-top{display:flex;gap:4px;align-items:center;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.09)}
+.ft-top i{width:6px;height:6px;border-radius:50%;background:#4a443b;display:block}
+.ft-top b{margin-left:4px;font-family:'JetBrains Mono',monospace;font-weight:400;font-size:6.4px;color:#8d8577;letter-spacing:.05em}
+.ft-body{flex:1;font-family:'JetBrains Mono',monospace;font-size:8.1px;line-height:1.62;color:#cfc6b4;padding-top:8px;white-space:pre}
+.ft-body .c{color:#6f6656}
+.ft-body .k{color:#7fc9be}
+.ft-body .s{color:#dfa48f}
+.ft-body .n{color:#c9a227}
+.ft-body .ok{color:#5fd0b8}
+.ft-body .cur{display:inline-block;width:5px;height:9px;background:#cfc6b4;vertical-align:-1px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+
+<!-- ==================== BANNER ==================== -->
+<section class="card" id="banner">
+  <div class="bn-wrap">
+    <div class="bn-sheet papel torn">
+      <div class="celo bn-sello"></div>
+      <div class="bn-grid">
+        <div class="bn-mini cod">
+          <div class="bn-code"><span class="c"># hola, mundo</span>
+<span class="k">def</span> main():
+    print(<span class="s">"compila"</span>)
+
+<span class="k">if</span> __name__ == <span class="s">"__main__"</span>:
+    main()</div>
+          <p>el primer café</p>
+        </div>
+
+        <div class="bn-center">
+          <p class="bn-ante">software &amp; hardware</p>
+          <h1 class="bn-title" style="font-size:46px;letter-spacing:-.03em;line-height:1">EDUARDO SOTO<em>.</em></h1>
+          <p class="bn-handle" style="font-size:15px;letter-spacing:.26em">estcodding</p>
+          <p class="bn-sub">Software &amp; Hardware Engineer · A Coruña</p>
+          <div class="bn-line"></div>
+          <p class="bn-note">Python · cloud · sistemas embebidos</p>
+        </div>
+
+        <div class="bn-mini side">
+          <div class="bn-stamp">
+            <b>CORUÑA</b>
+            <span>galicia · españa</span>
+            <i>2026</i>
+          </div>
+          <p>abierto a proyectos</p>
+        </div>
+      </div>
+    </div>
+    <div class="celo bn-tape-l"></div>
+    <div class="celo bn-tape-r"></div>
+  </div>
+</section>
+
+<!-- ==================== FICHA ==================== -->
+<section class="card" id="ficha">
+  <div class="fi-wrap">
+    <div class="celo" style="top:-11px;left:30%;width:96px;height:24px;transform:rotate(-3deg)"></div>
+    <div class="celo" style="bottom:14px;right:26px;width:80px;height:22px;transform:rotate(4deg)"></div>
+    <div class="fi-sheet papel">
+      <div class="fi-head">
+        <h2>Ficha técnica</h2>
+        <span>nº 001 · software &amp; hardware</span>
+      </div>
+      <dl>
+        <div class="fi-row"><dt>Nombre</dt><dd><b>Eduardo Soto Teijido</b> <span class="dim">· estcodding</span></dd></div>
+        <div class="fi-row"><dt>Perfil</dt><dd><b>Software &amp; Hardware Engineer</b> <span class="dim">· desarrollo cloud y sistemas embebidos</span></dd></div>
+        <div class="fi-row"><dt>Ciudad</dt><dd>A Coruña, Galicia <span class="dim">· España</span></dd></div>
+        <div class="fi-row"><dt>Experiencia</dt><dd>Cloud con AWS (SageMaker, S3, EC2) y Python; aplicaciones multiplataforma para Windows, Android y Linux; integración hardware-software con Raspberry Pi y Orange Pi; C y C++ sobre microcontroladores.</dd></div>
+        <div class="fi-row"><dt>Formación</dt><dd>Programación orientada a objetos y bases de datos relacionales (578 h) · Creación y publicación de páginas web (578 h) · Administración de redes (210 h)</dd></div>
+        <div class="fi-row"><dt>Stack</dt><dd><span class="mono" style="font-size:11.5px">Python · C/C++ · JavaScript · React · Node · Docker · AWS · SQL · Git · Linux</span></dd></div>
+        <div class="fi-row"><dt>Idiomas</dt><dd>Castellano y gallego nativos · Inglés avanzado · Japonés A1</dd></div>
+        <div class="fi-row"><dt>Ahora mismo</dt><dd>TAAMAGO en una ESP32 CYD, Aetheris para la Epic MegaJam y la web de la banda.</dd></div>
+      </dl>
+      <div class="fi-firma">
+        <p>Eduardo Soto — A Coruña, 2026</p>
+        <div class="fi-sello2">SOFTWARE<br>&amp; HARDWARE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== POLAROID: WEB ==================== -->
+<section class="card" id="web">
+  <div class="pol"><div class="pol-in">
+    <div class="celo pol-tape"></div>
+    <div class="pol-foto">
+      <div class="fw">
+        <div class="fw-win">
+          <div class="fw-bar"><i></i><i></i><i></i><b>experimentobasement.com</b></div>
+          <div class="fw-page">
+            <div class="fw-top"><span>Inicio</span><em></em><span>Directos</span></div>
+            <div class="fw-title">EXPERIMENTO<br><span>BASEMENT</span></div>
+            <div class="fw-hand">indie rock · A Coruña</div>
+            <div class="fw-photos">
+              <div class="fw-ph"><i></i></div>
+              <div class="fw-ph g"><i></i></div>
+            </div>
+            <div class="fw-list">
+              <div><b>14 FEB</b><span>Sanjurjo · A Coruña</span></div>
+              <div><b>02 MAR</b><span>Sala Mardi · Santiago</span></div>
+            </div>
+            <div class="fw-btn">Próximas fechas</div>
+          </div>
+          <div class="fw-foot">© Experimento Basement</div>
+        </div>
+      </div>
+    </div>
+    <div class="pol-cap">
+      <h3>experimentobasement.com</h3>
+      <p>Web de la banda: HTML, CSS y JS a mano, publicada en Cloudflare.</p>
+      <div class="pol-chips"><span class="acc">en producción</span><span>HTML</span><span>CSS</span><span>JS</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ==================== POLAROID: ESP32 CYD ==================== -->
+<section class="card" id="esp32">
+  <div class="pol"><div class="pol-in t2">
+    <div class="celo pol-tape r"></div>
+    <div class="pol-foto">
+      <div class="cyd">
+        <div class="cyd-case">
+          <span class="scr tl"></span><span class="scr tr"></span><span class="scr bl"></span><span class="scr br"></span>
+          <div class="cyd-usb"></div>
+          <div class="cyd-screen">
+            <div class="u">
+              <div class="u-top">
+                <span class="u-lv">Taamago <b>Lv.6</b></span>
+                <div class="u-stats">
+                  <i style="--c:#e8a7c4;--w:66%"></i>
+                  <i style="--c:#e3cf4f;--w:78%"></i>
+                  <i style="--c:#63b3ea;--w:54%"></i>
+                  <i style="--c:#5fc98f;--w:43%"></i>
+                </div>
+                <span class="u-coin"><s></s>4239</span>
+                <span class="u-gear"></span>
+              </div>
+              <div class="u-scene">
+                <span class="u-tl"></span>
+                <span class="u-tr"><i></i></span>
+                <div class="u-pet">
+                  <span class="ear l"></span><span class="ear r"></span>
+                  <span class="tuft"></span>
+                  <span class="head">
+                    <i class="eye l"></i><i class="eye r"></i><i class="nose"></i>
+                    <i class="blush l"></i><i class="blush r"></i>
+                  </span>
+                  <span class="body"></span>
+                  <span class="cushion"></span>
+                </div>
+              </div>
+              <div class="u-btns">
+                <span><i></i>Comer</span><span><i></i>Limpiar</span><span><i></i>Dormir</span>
+                <span><i></i>Estudio</span><span><i></i>Juegos</span><span><i></i>Tienda</span>
+              </div>
+            </div>
+            <div class="u-lcd"></div>
+            <div class="u-glass"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pol-cap">
+      <h3>TAAMAGO · ESP32 CYD</h3>
+      <p>Mascota virtual táctil: seis acciones, stats y monedas. Carcasa impresa en 3D.</p>
+      <div class="pol-chips"><span>ESP32</span><span>C++</span><span>TFT_eSPI</span><span class="acc">hardware</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ==================== POLAROID: EPIC JAM ==================== -->
+<section class="card" id="jam">
+  <div class="pol"><div class="pol-in">
+    <div class="celo pol-tape"></div>
+    <div class="pol-foto">
+      <div class="fj">
+        <div class="fj-stars"></div>
+        <div class="fj-moon"></div>
+        <div class="fj-hud">
+          <div><span>Aetheris</span><div class="fj-hp"><i></i></div></div>
+          <span style="opacity:.7">equipo de 3</span>
+        </div>
+        <div class="fj-mont"></div>
+        <div class="fj-orb"></div>
+        <div class="fj-hero">
+          <svg width="27" height="44" viewBox="0 0 9 15" shape-rendering="crispEdges">
+            <g fill="#0a0810">
+              <rect x="3" y="0" width="3" height="1"/><rect x="2" y="1" width="5" height="1"/>
+              <rect x="2" y="2" width="5" height="2"/><rect x="2" y="4" width="5" height="1"/>
+              <rect x="2" y="5" width="5" height="4"/><rect x="1" y="5" width="1" height="3"/>
+              <rect x="7" y="5" width="1" height="3"/><rect x="3" y="9" width="1" height="5"/>
+              <rect x="5" y="9" width="1" height="5"/>
+            </g>
+            <g fill="#0f9c8c" opacity=".55"><rect x="7" y="5" width="1" height="3"/><rect x="4" y="2" width="1" height="1"/></g>
+          </svg>
+        </div>
+        <div class="fj-mont f"></div>
+        <div class="fj-tag">Aetheris</div>
+        <div class="fj-jam">Epic MegaJam</div>
+      </div>
+    </div>
+    <div class="pol-cap">
+      <h3>Aetheris · Epic MegaJam</h3>
+      <p>Videojuego 3D en una semana de jam: nivel, mecánicas y sonido con el equipo.</p>
+      <div class="pol-chips"><span>Unreal 5</span><span>C++</span><span>Blueprints</span><span class="acc">jam</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ==================== POLAROID: JAVA ==================== -->
+<section class="card" id="bot">
+  <div class="pol"><div class="pol-in t2">
+    <div class="celo pol-tape r"></div>
+    <div class="pol-foto">
+      <div class="ft">
+        <div class="ft-top"><i></i><i></i><i></i><b>bot-basement — bash</b></div>
+        <div class="ft-body" style="font-size:9.1px;line-height:1.78;padding-top:16px"><span class="c">$</span> python bot.py
+<span class="ok">[OK]</span> conectado · <span class="n">3</span> servidores
+<span class="ok">[OK]</span> <span class="n">12</span> fechas sincronizadas
+<span class="k">#conciertos</span> Sala Mardi · 02 mar
+<span class="k">#conciertos</span> Sanjurjo · 14 feb
+<span class="ok">[OK]</span> setlist actualizado · <span class="n">18</span> temas
+<span class="ok">[OK]</span> aviso enviado a <span class="n">214</span> miembros
+<span class="c">$</span> /setlist add "Vento"
+<span class="ok">[OK]</span> tema añadido · <span class="n">19</span> en total
+<span class="c">$</span> <span class="cur"></span></div>
+      </div>
+    </div>
+    <div class="pol-cap">
+      <h3>Bot de Discord</h3>
+      <p>Bot de la banda: fechas, setlists y avisos en el Discord del grupo.</p>
+      <div class="pol-chips"><span>Python</span><span>discord.py</span><span>GitHub Actions</span><span class="acc">en producción</span></div>
+    </div>
+  </div></div>
+</section>
+
+
+<!-- ==================== FIRMA ==================== -->
+<section class="card" id="firma">
+  <div class="fr-wrap">
+    <div class="celo" style="top:-11px;left:38%;width:84px;height:22px;transform:rotate(-4deg)"></div>
+    <div class="fr-scrap papel torn">
+      <p>feito na Coruña</p>
+      <svg class="fr-squig" width="150" height="9" viewBox="0 0 150 9" fill="none"><path d="M2 6C22 1 40 8 60 4s38 4 58 1 24 1 28 0" stroke="#17130f" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span>eduardo soto · estcodding · 2026</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  const id = location.hash.replace('#','') || 'banner';
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('on'));
+  const el = document.getElementById(id);
+  if (el) el.classList.add('on');
+</script>
+</body>
+</html>
