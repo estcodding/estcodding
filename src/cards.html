@@ -136,7 +136,7 @@ body{font-family:'Inter',sans-serif;color:var(--tinta);padding:26px}
 /* =========================================================
    POLAROIDS 400
    ========================================================= */
-#web,#esp32,#jam,#bot{width:400px}
+#web,#esp32,#jam,#bot,#pancracio{width:400px}
 .pol{position:relative;width:400px;padding:18px 16px 22px}
 .pol-in{position:relative;background:var(--blanco);padding:13px 13px 0;transform:rotate(-1.4deg);box-shadow:0 14px 28px rgba(31,24,15,.26)}
 .pol-in.t2{transform:rotate(1.2deg)}
@@ -285,6 +285,10 @@ body{font-family:'Inter',sans-serif;color:var(--tinta);padding:26px}
 .ft-body .ok{color:#5fd0b8}
 .ft-body .cur{display:inline-block;width:5px;height:9px;background:#cfc6b4;vertical-align:-1px;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
+
+/* --- foto 5: Pancracio en la tele (captura real de la escena) --- */
+.pc-foto{display:block;width:100%;height:100%;object-fit:cover}
+.pc-tag{position:absolute;right:11px;bottom:11px;padding:3px 7px;background:rgba(23,19,15,.72);color:#f2ebdd;font-family:'JetBrains Mono',monospace;font-size:6.2px;letter-spacing:.14em;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -365,26 +369,7 @@ body{font-family:'Inter',sans-serif;color:var(--tinta);padding:26px}
   <div class="pol"><div class="pol-in">
     <div class="celo pol-tape"></div>
     <div class="pol-foto">
-      <div class="fw">
-        <div class="fw-win">
-          <div class="fw-bar"><i></i><i></i><i></i><b>experimentobasement.com</b></div>
-          <div class="fw-page">
-            <div class="fw-top"><span>Inicio</span><em></em><span>Directos</span></div>
-            <div class="fw-title">EXPERIMENTO<br><span>BASEMENT</span></div>
-            <div class="fw-hand">indie rock · A Coruña</div>
-            <div class="fw-photos">
-              <div class="fw-ph"><i></i></div>
-              <div class="fw-ph g"><i></i></div>
-            </div>
-            <div class="fw-list">
-              <div><b>14 FEB</b><span>Sanjurjo · A Coruña</span></div>
-              <div><b>02 MAR</b><span>Sala Mardi · Santiago</span></div>
-            </div>
-            <div class="fw-btn">Próximas fechas</div>
-          </div>
-          <div class="fw-foot">© Experimento Basement</div>
-        </div>
-      </div>
+      <img class="pc-foto" src="../assets/web_foto.png" alt="Captura de la sección Sobre nosotros de experimentobasement.com">
     </div>
     <div class="pol-cap">
       <h3>experimentobasement.com</h3>
@@ -454,31 +439,8 @@ body{font-family:'Inter',sans-serif;color:var(--tinta);padding:26px}
   <div class="pol"><div class="pol-in">
     <div class="celo pol-tape"></div>
     <div class="pol-foto">
-      <div class="fj">
-        <div class="fj-stars"></div>
-        <div class="fj-moon"></div>
-        <div class="fj-hud">
-          <div><span>Aetheris</span><div class="fj-hp"><i></i></div></div>
-          <span style="opacity:.7">equipo de 3</span>
-        </div>
-        <div class="fj-mont"></div>
-        <div class="fj-orb"></div>
-        <div class="fj-hero">
-          <svg width="27" height="44" viewBox="0 0 9 15" shape-rendering="crispEdges">
-            <g fill="#0a0810">
-              <rect x="3" y="0" width="3" height="1"/><rect x="2" y="1" width="5" height="1"/>
-              <rect x="2" y="2" width="5" height="2"/><rect x="2" y="4" width="5" height="1"/>
-              <rect x="2" y="5" width="5" height="4"/><rect x="1" y="5" width="1" height="3"/>
-              <rect x="7" y="5" width="1" height="3"/><rect x="3" y="9" width="1" height="5"/>
-              <rect x="5" y="9" width="1" height="5"/>
-            </g>
-            <g fill="#0f9c8c" opacity=".55"><rect x="7" y="5" width="1" height="3"/><rect x="4" y="2" width="1" height="1"/></g>
-          </svg>
-        </div>
-        <div class="fj-mont f"></div>
-        <div class="fj-tag">Aetheris</div>
-        <div class="fj-jam">Epic MegaJam</div>
-      </div>
+      <img class="pc-foto" src="../assets/jam_foto.png" alt="Aetheris: nave con velas solares junto a un sol y asteroides">
+      <span class="pc-tag">epic megajam</span>
     </div>
     <div class="pol-cap">
       <h3>Aetheris · Epic MegaJam</h3>
@@ -511,6 +473,23 @@ body{font-family:'Inter',sans-serif;color:var(--tinta);padding:26px}
       <h3>Bot de Discord</h3>
       <p>Bot de la banda: fechas, setlists y avisos en el Discord del grupo.</p>
       <div class="pol-chips"><span>Python</span><span>discord.py</span><span>GitHub Actions</span><span class="acc">en producción</span></div>
+    </div>
+  </div></div>
+</section>
+
+
+<!-- ==================== POLAROID: PANCRACIO ==================== -->
+<section class="card" id="pancracio">
+  <div class="pol"><div class="pol-in">
+    <div class="celo pol-tape"></div>
+    <div class="pol-foto">
+      <img class="pc-foto" src="../assets/pancracio_foto.png" alt="Pancracio, el abuelo de pixel art, en la pantalla de la tele">
+      <span class="pc-tag">fire tv · salón</span>
+    </div>
+    <div class="pol-cap">
+      <h3>Pancracio</h3>
+      <p>Un abuelo gallego de pixel art: le escribes, contesta con su voz y aparece en las teles de casa.</p>
+      <div class="pol-chips"><span>Python</span><span>Canvas</span><span>ElevenLabs</span><span>Cast</span><span class="acc">en la tele</span></div>
     </div>
   </div></div>
 </section>

@@ -32,6 +32,10 @@
   <img src="assets/bot.png" width="400" alt="Bot de Discord — fechas, setlists y avisos de la banda">
 </p>
 
+<p align="center">
+  <img src="assets/pancracio.png" width="400" alt="Pancracio — abuelo de pixel art: le escribes, habla con su voz y sale en las teles de casa">
+</p>
+
 ## Ficha técnica
 
 <p align="center">
@@ -46,7 +50,7 @@ estcodding — software & hardware engineer · A Coruña
 $ ls ~/stack
 python  c  cpp  javascript  react  node  docker  aws  sql  git  linux
 $ cat ~/ahora.txt
-taamago en una ESP32 CYD, aetheris para la Epic MegaJam y la web de la banda
+taamago en una ESP32 CYD, aetheris para la Epic MegaJam, la web de la banda y pancracio en la tele
 ```
 
 <p align="center">
